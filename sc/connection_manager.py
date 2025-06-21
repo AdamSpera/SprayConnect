@@ -13,8 +13,8 @@ except ImportError:  # pragma: no cover - paramiko missing during tests
 
 import telnetlib
 
-DEFAULT_CONFIG_PATH = os.path.expanduser("~/.conex/hosts.yaml")
-ENV_CONFIG = "CONEX_HOSTS_FILE"
+DEFAULT_CONFIG_PATH = os.path.expanduser("~/.sc/hosts.yaml")
+ENV_CONFIG = "SC_HOSTS_FILE"
 
 
 def load_config(path: Optional[str] = None) -> Dict[str, Any]:

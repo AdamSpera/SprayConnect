@@ -1,38 +1,28 @@
-# Conex
+# Spray Connect (sc)
 
-Conex is a lightweight CLI that tries several connection methods (SSH, Telnet
-and console) until one succeeds.
+Spray Connect is a lightweight CLI that tries several connection methods (SSH,
+Telnet and console) until one succeeds.
 
-## Install from GitHub
+## Quick start
 
-The package is not published on PyPI yet. Install it directly from GitHub:
-
-```bash
-pip install git+https://github.com/yourusername/conex.git
-```
-
-This installs the `conex` command and its dependencies.
-
-### Run without installing
-
-Alternatively, clone the repository and execute the CLI with Python:
+Clone the repository and run the script directly with Python:
 
 ```bash
-git clone https://github.com/yourusername/conex.git
-cd conex
-python -m conex.cli <hostname> [--config path/to/hosts.yaml]
+git clone https://github.com/adamspera/spray-connect.git
+cd spray-connect
+python3 sc.py <hostname> --config path/to/hosts.yaml
 ```
 
 ## Usage
 
-Once installed (or when running via Python), call the CLI with a hostname:
+Run the CLI with a hostname:
 
 ```bash
-conex <hostname> [--config path/to/hosts.yaml]
+python3 sc.py <hostname> --config path/to/hosts.yaml
 ```
 
-The configuration is loaded from `~/.conex/hosts.yaml` by default or from the
-path set in the `CONEX_HOSTS_FILE` environment variable.
+The configuration is loaded from `~/.sc/hosts.yaml` by default or from the path
+set in the `SC_HOSTS_FILE` environment variable.
 
 ### Configuration file format
 
