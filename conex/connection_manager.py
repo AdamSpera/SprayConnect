@@ -13,48 +13,32 @@ except ImportError:  # pragma: no cover - paramiko missing during tests
 
 import telnetlib
 
-PACKAGE_DIR = os.path.dirname(__file__)
-DEFAULT_CONFIG_PATH = os.path.join(PACKAGE_DIR, "hosts.yaml")
+DEFAULT_CONFIG_PATH = os.path.expanduser("~/.conex/hosts.yaml")
 ENV_CONFIG = "CONEX_HOSTS_FILE"
 
 
 def load_config(path: Optional[str] = None) -> Dict[str, Any]:
-    """Load configuration, optionally merging overrides from ``path``.
-
-    The base configuration is read from ``hosts.yaml`` in the package
-    directory. If a path is provided (either via ``--config`` or the
-    ``CONEX_HOSTS_FILE`` environment variable), its contents override any
-    matching hosts from the base file.
-    """
-
-    with open(DEFAULT_CONFIG_PATH, "r", encoding="utf-8") as f:
-        config = yaml.safe_load(f) or {}
-
-    override = path or os.getenv(ENV_CONFIG)
-    if override:
-        with open(override, "r", encoding="utf-8") as f:
-            new_cfg = yaml.safe_load(f) or {}
-        config.update(new_cfg)
-
-    return config
+    path = path or os.getenv(ENV_CONFIG, DEFAULT_CONFIG_PATH)
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
 
 
 class ConnectionManager:
     def __init__(self, config: Dict[str, Any]):
         self.config = config
 
-    def connect(self, hostname: str) -> tuple[str, Dict[str, Any]]:
+    def connect(self, hostname: str) -> str:
         host_cfg = self.config.get(hostname)
         if not host_cfg:
             raise ValueError(f"Host '{hostname}' not found in configuration")
         for name, method, info in self._iter_methods(host_cfg):
             ip = info["ip"]
             port = info["port"]
-            logger.info(f"Trying {name} on {ip}:{port}")
+            logger.info(f"Trying {name}:{port} on {ip}")
             try:
                 method(info)
                 logger.info(f"Connected via {name}")
-                return name, info
+                return name
             except Exception as exc:
                 logger.error(f"{name} failed: {exc}")
 
