@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "conex"
+version = "0.1.0"
+description = "CLI tool to connect to devices using SSH/Telnet with fallback"
+authors = [{name="Auto Generated"}]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "PyYAML",
+    "rich",
+    "loguru",
+    "paramiko"
+]
+
+[project.scripts]
+conex = "conex.cli:main"
