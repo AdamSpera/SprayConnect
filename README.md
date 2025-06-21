@@ -1,29 +1,43 @@
 # Conex
 
-A CLI tool to connect to network devices with automatic fallback across SSH, Telnet, and console methods.
+Conex is a lightweight CLI that tries several connection methods (SSH, Telnet
+and console) until one succeeds.
 
-## Installation
+## Install from GitHub
+
+The package is not published on PyPI yet. Install it directly from GitHub:
 
 ```bash
-pip install .
+pip install git+https://github.com/yourusername/conex.git
 ```
 
-The command `conex` will be available on your `PATH`.
+This installs the `conex` command and its dependencies.
+
+### Run without installing
+
+Alternatively, clone the repository and execute the CLI with Python:
+
+```bash
+git clone https://github.com/yourusername/conex.git
+cd conex
+python -m conex.cli <hostname> [--config path/to/hosts.yaml]
+```
 
 ## Usage
+
+Once installed (or when running via Python), call the CLI with a hostname:
 
 ```bash
 conex <hostname> [--config path/to/hosts.yaml]
 ```
 
-By default the configuration is loaded from `~/.conex/hosts.yaml` or from the
-path specified in the `CONEX_HOSTS_FILE` environment variable.
+The configuration is loaded from `~/.conex/hosts.yaml` by default or from the
+path set in the `CONEX_HOSTS_FILE` environment variable.
 
 ### Configuration file format
 
-The host configuration can be written either using legacy keys or a more flexible
-list of connection entries. The simplest approach is to provide a list directly
-under each hostname. Each item declares the connection `type` and credentials:
+Each host entry provides a list of connection methods. An example YAML file is
+shown below:
 
 ```yaml
 hostname1:
@@ -47,6 +61,16 @@ hostname1:
     port: 2323
     username: console
     password: c0ns0le
+```
+
+The list items share the same schema:
+
+```
+- type: <ssh|telnet|console_ssh|console_telnet>
+  ip: <ip address>
+  port: <integer>
+  username: <optional username>
+  password: <optional password>
 ```
 
 You may also nest the list under a `connections:` key if you prefer to keep
