@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "conex"
+name = "spray-connect"
 version = "0.1.0"
 description = "CLI tool to connect to devices using SSH/Telnet with fallback"
 authors = [{name="Auto Generated"}]
@@ -17,4 +17,4 @@ dependencies = [
 ]
 
 [project.scripts]
-conex = "conex.cli:main"
+sc = "sc.cli:main"
