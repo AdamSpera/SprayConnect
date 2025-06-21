@@ -31,12 +31,8 @@ Once installed (or when running via Python), call the CLI with a hostname:
 conex <hostname> [--config path/to/hosts.yaml]
 ```
 
-The base configuration is loaded from `hosts.yaml` in the package directory.
-Use `--config` or the `CONEX_HOSTS_FILE` environment variable to load an
-additional file that overrides entries from the base file.
-
-When a method succeeds, Conex launches your system `ssh` or `telnet` client
-so you are dropped directly into an interactive session.
+The configuration is loaded from `~/.conex/hosts.yaml` by default or from the
+path set in the `CONEX_HOSTS_FILE` environment variable.
 
 ### Configuration file format
 
