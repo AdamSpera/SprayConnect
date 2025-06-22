@@ -1,0 +1,20 @@
+mydevice:
+  - type: ssh
+    ip: 10.100.2.134
+    port: 22
+    username: admin
+    password: cisco
+  - type: telnet
+    ip: 10.100.2.134
+    port: 23
+    username: admin
+    password: cisco
+  - type: telnet
+    ip: 10.100.2.134
+    port: 2025
+    username: admin
+  - type: ssh
+    ip: 10.100.2.134
+    port: 2025
+    username: admin
+    password: cisco
